@@ -1,0 +1,197 @@
+@use '@/style/variable' as *;
+
+/* 背景色 */
+.normal-bg {
+  transition: all 0.2s ease;
+  background-color: var(--normal-layout-screen-bg-color);
+}
+
+.body-bg {
+  transition: all 0.2s ease;
+  background-color: var(--normal-layout-body-bg-color);
+}
+
+.body-bg-invert {
+  transition: all 0.2s ease;
+  background-color: var(--normal-layout-body-bg-invert-color);
+}
+
+.box-bg {
+  transition: all 0.2s ease;
+  background-color: var(--normal-layout-box-bg-color);
+}
+
+.box-bg-invert {
+  transition: all 0.2s ease;
+  background-color: var(--normal-layout-box-bg-invert-color);
+}
+
+/* 文本颜色 */
+.text-primary {
+  transition: all 0.2s ease;
+  color: var(--normal-layout-text-color);
+}
+
+.text-invert {
+  transition: all 0.2s ease;
+  color: var(--normal-layout-text-invert-color);
+}
+
+.text-secondary {
+  transition: all 0.2s ease;
+  color: var(--normal-layout-text-secondary-color);
+}
+
+.text-secondary-invert {
+  transition: all 0.2s ease;
+  color: var(--normal-layout-text-secondary-invert-color);
+}
+
+/* 边框 */
+.border-all {
+  transition: all 0.2s ease;
+  border: solid 1px var(--normal-layout-border-color);
+}
+
+.border-all-invert {
+  transition: all 0.2s ease;
+  border: solid 1px var(--normal-layout-border-invert-color);
+}
+
+.border-bottom {
+  transition: all 0.2s ease;
+  border-bottom: solid 1px var(--normal-layout-border-color);
+}
+
+.border-right {
+  transition: all 0.2s ease;
+  border-right: solid 1px var(--normal-layout-border-color);
+}
+
+.primary {
+  color: var(--primary);
+}
+
+.normal-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.content-scroll {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+}
+
+/* 添加动画效果 */
+.fade-in-up-animation {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($primary-color, 0.3);
+    border-radius: 2px;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.5);
+    }
+  }
+}
+
+/* 禁止复制 */
+.no-select {
+  user-select: none;
+}
+
+/* 允许复制 */
+.allow-select {
+  user-select: text;
+}
+
+.text-ellipsis-single-line {
+  // 保证文字只在一行内展示，超出部分用省略号表示
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.normal-button {
+  background-color: var(--normal-layout-body-bg-invert-color);
+  transition: all 0.2s ease;
+  border-radius: 10px;
+  border: none;
+  color: var(--normal-layout-text-invert-color);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--normal-layout-box-bg-color);
+    color: var(--normal-layout-text-color);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default !important;
+    
+    &:hover {
+      background-color: var(--normal-layout-body-bg-invert-color) !important;
+      color: var(--normal-layout-text-invert-color) !important;
+    }
+  }
+}
+
+.secondary-button {
+  background-color: var(--normal-layout-box-bg-color);
+  transition: all 0.2s ease;
+  border-radius: 10px;
+  border: none;
+  color: var(--normal-layout-text-secondary-color);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--normal-layout-box-bg-invert-color);
+    color: var(--normal-layout-text-secondary-invert-color);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default !important;
+    
+    &:hover {
+      background-color: var(--normal-layout-box-bg-color) !important;
+      color: var(--normal-layout-text-secondary-color) !important;
+    }
+  }
+}
+
+
+.click-text {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  &:hover {
+    color: var(--primary);
+  }
+}

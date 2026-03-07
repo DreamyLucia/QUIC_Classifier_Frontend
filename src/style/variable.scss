@@ -1,0 +1,53 @@
+$primary-color: #7757c0;
+
+// 字体颜色
+$text-primary-dark: #FFFFFF;
+$text-secondary-dark: #c2c2c2;
+$text-primary: #000000;
+$text-secondary: #212121;
+
+// 背景色
+$background-default-dark: #181818;
+$background-secondary-dark: #222226;
+$background-tertiary-dark: #1D1D20;
+$background-default: #FFFFFF;
+$background-secondary: #EFEFFF;
+$background-tertiary: #E3E3FF;
+
+// 分割线颜色
+$border-color-dark: #36353F;
+$border-color: #E4D8FF;
+
+// 渐变按钮
+$left-color: #2e77ca;
+$right-color: #AB57C0;
+
+:root[data-theme="dark"] {
+  --primary: #{$primary-color};
+  --normal-layout-screen-bg-color: #{$background-default-dark};
+  --normal-layout-body-bg-color: #{$background-secondary-dark};
+  --normal-layout-body-bg-invert-color: #{$background-secondary};
+  --normal-layout-box-bg-color: #{$background-tertiary-dark};
+  --normal-layout-box-bg-invert-color: #{$background-tertiary};
+  --normal-layout-border-color: #{$border-color-dark};
+  --normal-layout-border-invert-color: #{$border-color};
+  --normal-layout-text-color: #{$text-primary-dark};
+  --normal-layout-text-secondary-color: #{$text-secondary-dark};
+  --normal-layout-text-invert-color: #{$text-primary};
+  --normal-layout-text-secondary-invert-color: #{$text-secondary};
+}
+
+:root[data-theme="light"] {
+  --primary: #{$primary-color};
+  --normal-layout-screen-bg-color: #{$background-default};
+  --normal-layout-body-bg-color: #{$background-secondary};
+  --normal-layout-body-bg-invert-color: #{$background-secondary-dark};
+  --normal-layout-box-bg-color: #{$background-tertiary};
+  --normal-layout-box-bg-invert-color: #{$background-tertiary-dark};
+  --normal-layout-border-color: #{$border-color};
+  --normal-layout-border-invert-color: #{$border-color-dark};
+  --normal-layout-text-color: #{$text-primary};
+  --normal-layout-text-secondary-color: #{$text-secondary};
+  --normal-layout-text-invert-color: #{$text-primary-dark};
+  --normal-layout-text-secondary-invert-color: #{$text-secondary-dark};
+}
