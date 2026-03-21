@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import PageHeader from '@/components/HomeHeader/index.vue'
 import Hero from './components/Hero.vue'
-const handleLogin = () => {
-  // TODO: 跳转到登录页面
-  // eslint-disable-next-line no-console
-  console.log('handleLogin');
-};
 </script>
 
 <template>

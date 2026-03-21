@@ -9,7 +9,7 @@ const basePath = import.meta.env.VITE_PUBLIC_BASE || '/';
 const api: AxiosInstance = axios.create({
   // 统一前缀
   baseURL: ``,
-  timeout: 5000, // 全局超时时间
+  timeout: 50000, // 全局超时时间
   paramsSerializer: {
     serialize: (params: any) => {
       return qs.stringify(params, { arrayFormat: 'repeat' })
@@ -17,14 +17,23 @@ const api: AxiosInstance = axios.create({
   },
 })
 
-// 请求拦截器：自动添加 Token
-api.interceptors.request.use((config) => {
-  const token = import.meta.env.VITE_API_TOKEN; // 从环境变量读取
-  if (token)
-    config.headers.Authorization = `Bearer ${token}`;
-
-  return config;
-});
+/*
+  * Axios请求拦截器，对请求进行处理
+*/
+api.interceptors.request.use(
+  (config) => {
+    if (!config.headers.skipToken) {
+      // 添加统一请求处理,如添加token，添加请求头等
+      const token = Cookies.get('access_token')
+      if (token)
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
 
 /**
  * 正常返回时的响应拦截器处理函数
@@ -40,33 +49,13 @@ const handleResponse = (response: AxiosResponse<any>) => {
     return response.data
 
   // 2xx表示成功，直接返回
-  if (status >= 200 && status < 300)
+  if (status >= 200 && status < 300) {
     return response.data
-
-  // 401表示未授权，需要重新登录
-  if (status === HttpStatusCode.Unauthorized) {
-    // 如果本身就在登录页面，那么不进行跳转
-    if (window.location.pathname !== `${basePath}signin`)
-      window.location.href = `${basePath}signin`
   }
-
-  // 如果是 403 那么就是权限不足
-  if (status === HttpStatusCode.Forbidden) {
-    message.error(`权限不足:${response.data.message}`)
+  else {
+    message.error(response.data.msg)
     throw response.data
   }
-
-  // 301 权限不足提示
-  if (status === HttpStatusCode.MovedPermanently) {
-    message.error(`权限不足:${response.data.message}`)
-    throw response.data
-  }
-
-  // 处理其他异常
-  if (status !== 1 && status !== 0)
-    throw response.data
-
-  return response.data
 }
 
 /**
@@ -84,31 +73,21 @@ const handleError = (error: any) => {
   if (Number.isNaN(status))
     return Promise.reject(error)
 
-  // 如果是 2xx 那么就是业务错误
-  if (status >= 200 && status < 300)
-    return Promise.reject(error.response.data)
-
   // 如果是 401 那么就是未授权，需要重新登录
   if (status === HttpStatusCode.Unauthorized) {
+    message.error(error.response.data.msg)
     // 如果本身就在登录页面，那么不进行跳转
-    if (window.location.pathname !== `${basePath}signin`)
-      window.location.href = `${basePath}signin`
+    if (window.location.pathname !== `${basePath}login` && window.location.pathname !== `${basePath}register` && window.location.pathname !== `${basePath}reset`)
+      window.location.href = `${basePath}login`
   }
-
-  // 如果是 403 那么就是权限不足
-  if (status === HttpStatusCode.Forbidden) {
-    message.error(`权限不足:${error.response.data.message}`)
-    throw error.response.data
-  }
-
-  // 301 权限不足提示
-  if (status === HttpStatusCode.MovedPermanently) {
-    message.error(`权限不足:${error.response.data.message}`)
-    throw error.response.data
-  }
-
-  // 处理其他异常
-  return Promise.reject(error)
 }
+
+/*
+  * Axios响应拦截器，对响应进行处理
+*/
+api.interceptors.response.use(
+  handleResponse,
+  handleError,
+)
 
 export { api }

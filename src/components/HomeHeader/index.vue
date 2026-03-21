@@ -3,14 +3,17 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { t } from '@/locales';
 import { useAppStore } from '@/store/app';
+import { useUserStore } from '@/store/user';
 import type { Language } from '@/types/locales'
-import { DownCircleOutlined } from '@ant-design/icons-vue';
+import { DownCircleOutlined, LoginOutlined } from '@ant-design/icons-vue';
 import { languageOptions } from '@/constants/language'
+import { message } from 'ant-design-vue';
 
 const route = useRoute();
 const router = useRouter();
 
 const appStore = useAppStore()
+const userStore = useUserStore()
 const dropdownTrigger = ref<HTMLLIElement | null>(null)
 const dropdownWidth = ref('auto')
 const navHeight = ref(0)
@@ -49,10 +52,7 @@ onUnmounted(() => {
 })
 
 const pageList = computed(() => [
-  { name: 'Price', title: t('home.header.pageList.price') },
-  { name: 'Demo', title: t('home.header.pageList.demo') },
   { name: 'Changelog', title: t('home.header.pageList.changelog') },
-  { name: 'Contact', title: t('home.header.pageList.contact') },
 ]);
 
 const handleClickPage = (name: string) => {
@@ -63,6 +63,10 @@ const handleClickLogo = () => {
 };
 const handleLogin = () => {
   router.push({ name: 'SignInPage' });
+};
+const handleLogout = () => {
+  userStore.logout();
+  message.success(t('message.success.logout'));
 };
 
 const handleMouseEnter = () => {
@@ -85,10 +89,10 @@ const handleMouseLeave = () => {
           class="flex items-center gap-3 cursor-pointer"
           @click="handleClickLogo"
         >
-          <div class="h-8 w-8">
+          <div class="h-12 w-12">
             <img src="@/assets/logo.png" alt="Logo" class="h-full w-full object-contain">
           </div>
-          <span class="text-xl font-bold ml-2 primary">{{ t('productName') }}</span>
+          <span class="text-2xl font-bold ml-2 primary">{{ t('productName') }}</span>
         </div>
 
         <!-- 右侧导航菜单 -->
@@ -152,12 +156,24 @@ const handleMouseLeave = () => {
               </clipPath>
             </defs>
           </svg>
-          <button
-            class="font-bold py-2 px-8 login-button-bg text-secondary"
-            @click="handleLogin"
-          >
-            {{ t('home.header.login') }}
-          </button>
+          <!-- 登录/用户区域 - 根据登录状态显示不同内容 -->
+          <div v-if="!userStore.isLoggedIn">
+            <button
+              class="font-bold py-2 px-8 login-button-bg text-secondary"
+              @click="handleLogin"
+            >
+              {{ t('home.header.login') }}
+            </button>
+          </div>
+          <div v-else class="flex items-center gap-3">
+            <div class="h-12 w-12 rounded-full border-2 border-all-2-invert overflow-hidden">
+              <img src="@/assets/user.png" alt="Logo" class="h-full w-full object-cover">
+            </div>
+            <LoginOutlined
+              class="text-2xl text-red-500 cursor-pointer transition-transform duration-200 hover:scale-110 ml-2"
+              @click="handleLogout"
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -4,12 +4,11 @@ import { t } from '@/locales';
 import { useAppStore } from '@/store/app';
 
 const router = useRouter();
-const route = useRoute();
 
 const appStore = useAppStore()
 
 const gotoHome = () => {
-  router.push({ name: 'Dashboard' });
+  router.push({ name: 'Home' });
 };
 
 const toggleTheme = () => {
@@ -19,7 +18,7 @@ const toggleTheme = () => {
 
 <template>
   <a-layout style="height: 100vh;" class="overflow-auto normal-bg">
-    <div class="flex justify-start items-center my-4 gap-2 mx-4 z-50">
+    <div class="flex justify-start items-center my-4 gap-2 mx-8 z-50">
       <div class="h-12 w-12">
         <img src="@/assets/logo.png" alt="Logo" class="h-full w-full object-contain cursor-pointer" @click="gotoHome">
       </div>

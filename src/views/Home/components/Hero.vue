@@ -53,12 +53,6 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col items-center justify-center text-center">
-    <!-- 限时活动标签 -->
-    <div class="rounded-full px-6 py-2 body-bg z-10 mb-4">
-      <span class="text-text-secondary text-secondary">{{ t('home.hero.promotion.label') }}</span>
-      <span class="ml-2 font-bold text-primary">{{ t('home.hero.promotion.highlight') }}</span>
-    </div>
-
     <!-- 主标题 -->
     <h1 class="text-6xl font-bold primary">
       {{ t('productName') }}
@@ -83,33 +77,6 @@ onMounted(() => {
         {{ t('home.hero.buttons.secondary') }}
         <ArrowRightOutlined />
       </button>
-    </div>
-
-    <!-- 使用说明 -->
-    <div class="text-sm z-10 mt-8">
-      <p>
-        <span class="font-bold text-secondary">{{ t('home.hero.instructions.core.label') }}</span>
-        <span class="text-secondary mx-2">{{ t('home.hero.instructions.core.text') }}</span>
-        <span class="font-bold primary cursor-pointer">{{ t('home.hero.instructions.core.action') }}</span>
-      </p>
-      <p>
-        <span class="font-bold text-secondary">{{ t('home.hero.instructions.client.label') }}</span>
-        <span class="text-secondary mx-2">{{ t('home.hero.instructions.client.text') }}</span>
-        <span class="font-bold primary cursor-pointer">{{ t('home.hero.instructions.client.action') }}</span>
-      </p>
-    </div>
-
-    <!-- 帮助说明 -->
-    <div class="flex flex-col items-center justify-center rounded-full px-6 py-4 mt-4 tips-border gap-4">
-      <p class="font-bold text-primary my-0">
-        {{ t('home.hero.help.title') }}
-      </p>
-      <p class="text-secondary my-0">
-        {{ t('home.hero.help.points[0]') }}
-      </p>
-      <p class="text-secondary my-0">
-        {{ t('home.hero.help.points[1]') }}
-      </p>
     </div>
   </div>
 </template>

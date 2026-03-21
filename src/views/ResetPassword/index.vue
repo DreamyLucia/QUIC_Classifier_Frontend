@@ -3,35 +3,29 @@ import SingleLayout from '@/layouts/SingleLayout/index.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { t } from '@/locales';
-import { getPublicKeyApi, loginApi } from '@/api/login';
+import { getPublicKeyApi, resetApi } from '@/api/login';
 import { message } from 'ant-design-vue';
 import { encryptPassword, setPublicKey } from '@/utils/encrypt';
-import { useUserStore } from '@/store/user';
 
 const router = useRouter();
-const userStore = useUserStore();
 
 const username = ref('');
 const password = ref('');
-const rememberMe = ref(false);
-
-const remember = () => {
-  rememberMe.value = !rememberMe.value
-}
-
-const gotoReset = () => {
-  router.push({ name: 'ResetPasswordPage' });
-}
+const recheckPassword = ref('')
 
 const gotoSignUp = () => {
   router.push({ name: 'SignUpPage' });
+}
+
+const gotoSignIn = () => {
+  router.push({ name: 'SignInPage' });
 }
 
 // 获取公钥
 const fetchPublicKey = async () => {
   try {
     const res = await getPublicKeyApi();
-    setPublicKey(res.publicKey); // 设置公钥到 utils
+    setPublicKey(res.publicKey);
   }
   catch (error) {
     message.error(t('message.error.netError'));
@@ -39,13 +33,21 @@ const fetchPublicKey = async () => {
   }
 };
 
-const handleSignIn = async () => {
+const handleReset = async () => {
   if (!username.value) {
     message.error(t('message.error.usernameEmpty'));
     return;
   }
   if (!password.value) {
     message.error(t('message.error.passwordEmpty'));
+    return;
+  }
+  if (!recheckPassword.value) {
+    message.error(t('message.error.recheckPasswordEmpty'));
+    return;
+  }
+  if (password.value !== recheckPassword.value) {
+    message.error(t('message.error.passwordMismatch'));
     return;
   }
 
@@ -55,10 +57,9 @@ const handleSignIn = async () => {
   // 加密密码
   const encryptedPassword = encryptPassword(password.value);
 
-  await loginApi(username.value, encryptedPassword);
-  userStore.syncLoginState();
-  message.success(t('message.success.signIn'));
-  router.push({ name: 'Home' });
+  await resetApi(username.value, encryptedPassword);
+  message.success(t('message.success.reset'));
+  gotoSignIn();
 };
 </script>
 
@@ -68,47 +69,50 @@ const handleSignIn = async () => {
       <div class="flex flex-col items-center mx-8 mt-20">
         <!-- 标题 -->
         <h1 class="text-3xl md:text-5xl font-bold mb-2 text-primary">
-          {{ t('signin.title') }}
+          {{ t('reset.title') }}
         </h1>
 
-        <!-- 登录表单 -->
+        <!-- 表单 -->
         <div class="w-[400px] h-[400px] max-w-md flex flex-col body-bg items-center mt-4 px-8 py-4 rounded-[10px]">
           <p class="text-2xl font-bold text-secondary">
-            {{ t('signin.label') }}
+            {{ t('reset.label') }}
           </p>
           <!-- 输入框 -->
           <a-input
             v-model:value="username"
             type="text"
-            :placeholder="t('signin.usernamePlaceholder')"
-            class="w-full px-4 py-2 rounded-[10px] border-all custom-input"
+            :placeholder="t('reset.usernamePlaceholder')"
+            class="w-full px-4 py-2 rounded-[10px] border-all custom-input mt-2"
           />
           <a-input-password
             v-model:value="password"
             type="password"
-            :placeholder="t('signin.passwordPlaceholder')"
+            :placeholder="t('reset.passwordPlaceholder')"
+            class="w-full px-4 py-2 rounded-[10px] border-all custom-input mt-2"
+          />
+          <a-input-password
+            v-model:value="recheckPassword"
+            type="password"
+            :placeholder="t('reset.recheckPlaceholder')"
             class="w-full px-4 py-2 rounded-[10px] border-all custom-input mt-2"
           />
 
-          <!-- 记住我 -->
-          <div class="w-full flex justify-between text-sm text-secondary mb-6 mx-2 px-2 mt-4">
-            <a-checkbox @change="remember">
-              {{ t('signin.remember') }}
-            </a-checkbox>
-            <span class="primary underline-link" @click="gotoReset">{{ t('signin.forget') }}</span>
-          </div>
-
-          <!-- 登录按钮 -->
+          <!-- 按钮 -->
           <button
-            class="w-full py-2 font-bold rounded-[10px] border-none primary-button"
-            @click="handleSignIn"
+            class="w-full py-2 font-bold rounded-[10px] border-none primary-button mt-4"
+            @click="handleReset"
           >
-            {{ t('signin.button') }}
+            {{ t('reset.button') }}
           </button>
 
           <!-- 注册提示 -->
           <p class="text-center text-secondary mt-auto font-bold">
             {{ t('signin.signupLabel') }} <span class="primary underline-link" @click="gotoSignUp">{{ t('signin.signupButton') }}</span>
+          </p>
+
+          <!-- 登录提示 -->
+          <p class="text-center text-secondary mt-2 font-bold">
+            {{ t('signup.signinLabel') }} <span class="primary underline-link" @click="gotoSignIn">{{ t('signup.signinButton') }}</span>
           </p>
         </div>
       </div>

@@ -58,6 +58,16 @@
   border: solid 1px var(--normal-layout-border-invert-color);
 }
 
+.border-all-2 {
+  transition: all 0.2s ease;
+  border: solid 2px var(--normal-layout-border-color);
+}
+
+.border-all-2-invert {
+  transition: all 0.2s ease;
+  border: solid 2px var(--normal-layout-border-invert-color);
+}
+
 .border-bottom {
   transition: all 0.2s ease;
   border-bottom: solid 1px var(--normal-layout-border-color);
@@ -137,6 +147,21 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.primary-button {
+  border-style: solid;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  border-color: var(--primary);
+  border-radius: 10px;
+  color: var(--primary);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--normal-layout-text-color);
+  }
 }
 
 .normal-button {

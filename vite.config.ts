@@ -35,12 +35,11 @@ export default defineConfig(({ mode }) => {
       proxy: {
         // 配置代理 '/api' 路由
         '^/api(.*)': {
-          // target: 'http://127.0.0.1:5001/',
-          target: 'http://localhost:8080/',
+          target: 'http://localhost:5000',
           changeOrigin: true,
           secure: false,
           ws: true,
-          rewrite: path => path.replace(/^\/api/, ''),
+          rewrite: path => path,
         },
       },
     },
