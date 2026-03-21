@@ -40,7 +40,7 @@ const toggleTheme = () => {
   </a-layout>
 </template>
 
-<style>
+<style lang="scss">
 @use '@/style/custom-theme' as *;
 .theme-toggle {
   cursor: pointer;
