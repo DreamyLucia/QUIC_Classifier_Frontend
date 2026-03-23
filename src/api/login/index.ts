@@ -32,6 +32,7 @@ export const registerApi = async (username: string, password: string) => {
     const access_token = response.data.token;
     // 设置Cookie
     Cookies.set('access_token', access_token)
+    return response.data;
   }
   catch (error) {
     console.error('账号密码注册网络接口错误', error);
@@ -49,6 +50,7 @@ export const loginApi = async (username: string, password: string) => {
     const access_token = response.data.token;
     // 设置Cookie
     Cookies.set('access_token', access_token)
+    return response.data;
   }
   catch (error) {
     console.error('账号密码登录网络接口错误', error);

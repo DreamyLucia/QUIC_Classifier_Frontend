@@ -14,7 +14,6 @@ const whiteList = [
 
 // 路由守卫
 router.beforeEach(async (to, from, next) => {
-  const userStore = useUserStore();
   const token = Cookies.get('access_token');
 
   // 白名单检查

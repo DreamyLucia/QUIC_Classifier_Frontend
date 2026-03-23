@@ -2,6 +2,7 @@
 import {
   LoadingOutlined,
 } from '@ant-design/icons-vue'
+
 defineProps<{
   loading: boolean
   animated?: boolean

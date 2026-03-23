@@ -60,7 +60,12 @@ const handleSignUp = async () => {
   // 加密密码
   const encryptedPassword = encryptPassword(password.value);
 
-  await registerApi(username.value, encryptedPassword);
+  const response = await registerApi(username.value, encryptedPassword);
+  userStore.setUserInfo({
+    userId: response.user_id,
+    username: response.username,
+    roles: [response.role], // 将 role 字符串转为数组
+  });
   userStore.syncLoginState();
   message.success(t('message.success.signUp'));
   router.push({ name: 'Home' });

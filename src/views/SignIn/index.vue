@@ -55,7 +55,12 @@ const handleSignIn = async () => {
   // 加密密码
   const encryptedPassword = encryptPassword(password.value);
 
-  await loginApi(username.value, encryptedPassword);
+  const response = await loginApi(username.value, encryptedPassword);
+  userStore.setUserInfo({
+    userId: response.user_id,
+    username: response.username,
+    roles: [response.role], // 将 role 字符串转为数组
+  });
   userStore.syncLoginState();
   message.success(t('message.success.signIn'));
   router.push({ name: 'Home' });
