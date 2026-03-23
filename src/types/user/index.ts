@@ -1,5 +1,7 @@
 // 用户信息类型
 export interface UserInfoType {
-  userName: string;
+  username: string;
   userId: string;
+  roles: string[];
+  createdAt?: string;
 }

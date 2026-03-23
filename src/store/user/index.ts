@@ -11,8 +11,9 @@ interface UserStateType {
 export const useUserStore = defineStore('user', {
   state: (): UserStateType => ({
     userInfo: {
-      userName: '',
+      username: '',
       userId: '',
+      roles: [],
     },
     // 登录态以 cookie 是否存在为准
     isLoggedIn: Boolean(Cookies.get('access_token')),
@@ -25,8 +26,9 @@ export const useUserStore = defineStore('user', {
       // 没有 token 时清空用户信息，避免展示脏数据
       if (!this.isLoggedIn) {
         this.userInfo = {
-          userName: '',
+          username: '',
           userId: '',
+          roles: [],
         };
       }
     },
@@ -39,17 +41,24 @@ export const useUserStore = defineStore('user', {
       Cookies.remove('access_token');
       this.isLoggedIn = false;
       this.userInfo = {
-        userName: '',
+        username: '',
         userId: '',
+        roles: [],
       };
     },
   },
   getters: {
     getUserName(): string {
-      return this.userInfo.userName;
+      return this.userInfo.username;
     },
     getUserId(): string {
       return this.userInfo.userId;
+    },
+    getRoles(): string[] {
+      return this.userInfo.roles;
+    },
+    isAdmin(): boolean {
+      return this.userInfo.roles.includes('user');
     },
   },
   // 持久化

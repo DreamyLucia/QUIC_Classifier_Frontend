@@ -11,6 +11,11 @@ const router = createRouter({
       name: 'Home',
       component: () => import('@/views/Home/index.vue'),
     },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/Dashboard/index.vue'),
+    },
     ...authRouters,
   ],
 });
