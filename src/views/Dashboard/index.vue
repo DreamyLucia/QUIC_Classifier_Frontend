@@ -45,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <LoadingWrapper :loading="isLoading" class="flex h-full w-full normal-bg px-8 py-4">
+  <LoadingWrapper :loading="isLoading" animated class="flex h-full w-full normal-bg px-8 py-4">
     <Siderbar />
   </LoadingWrapper>
 </template>

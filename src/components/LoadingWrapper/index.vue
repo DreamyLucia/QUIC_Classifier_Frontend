@@ -4,6 +4,7 @@ import {
 } from '@ant-design/icons-vue'
 defineProps<{
   loading: boolean
+  animated?: boolean
 }>()
 </script>
 
@@ -16,7 +17,18 @@ defineProps<{
       </div>
     </template>
     <template v-else>
-      <slot />
+      <transition
+        v-if="animated"
+        appear
+        enter-active-class="transition-all duration-500 ease-out"
+        enter-from-class="opacity-0 translate-y-4"
+        enter-to-class="opacity-100 translate-y-0"
+      >
+        <slot />
+      </transition>
+      <div v-else>
+        <slot />
+      </div>
     </template>
   </div>
 </template>
