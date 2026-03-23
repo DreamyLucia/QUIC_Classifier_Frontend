@@ -2,7 +2,6 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Siderbar from '@/components/SiderBar/index.vue'
-import LoadingWrapper from '@/components/LoadingWrapper/index.vue'
 import { getUserInfoApi } from '@/api/user';
 import type { UserInfoType } from '@/types/user';
 import { message } from 'ant-design-vue';
@@ -45,9 +44,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <LoadingWrapper :loading="isLoading" animated class="flex h-full w-full normal-bg px-8 py-4">
-    <Siderbar />
-  </LoadingWrapper>
+  <div class="flex h-full w-full normal-bg px-8 py-4 ">
+    <transition
+      appear
+      enter-active-class="transition-all duration-500 ease-out"
+      enter-from-class="opacity-0 translate-y-4"
+      enter-to-class="opacity-100 translate-y-0"
+    >
+      <Siderbar />
+    </transition>
+  </div>
 </template>
 
 <style lang="scss">

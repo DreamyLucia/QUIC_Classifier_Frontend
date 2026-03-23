@@ -57,7 +57,7 @@ const handleSignIn = async () => {
 
   const response = await loginApi(username.value, encryptedPassword);
   userStore.setUserInfo({
-    userId: response.user_id,
+    userId: response.userId,
     username: response.username,
     roles: [response.role], // 将 role 字符串转为数组
   });

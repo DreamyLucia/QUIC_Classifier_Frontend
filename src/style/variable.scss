@@ -22,6 +22,10 @@ $border-color: #E4D8FF;
 $left-color: #2e77ca;
 $right-color: #AB57C0;
 
+// 显形颜色
+$background-appear-dark: #37373d;
+$background-appear: #E3E3FF;
+
 :root[data-theme="dark"] {
   --primary: #{$primary-color};
   --normal-layout-screen-bg-color: #{$background-default-dark};
@@ -29,6 +33,7 @@ $right-color: #AB57C0;
   --normal-layout-body-bg-invert-color: #{$background-secondary};
   --normal-layout-box-bg-color: #{$background-tertiary-dark};
   --normal-layout-box-bg-invert-color: #{$background-tertiary};
+  --normal-layout-bg-appear-color: #{$background-appear-dark};
   --normal-layout-border-color: #{$border-color-dark};
   --normal-layout-border-invert-color: #{$border-color};
   --normal-layout-text-color: #{$text-primary-dark};
@@ -44,6 +49,7 @@ $right-color: #AB57C0;
   --normal-layout-body-bg-invert-color: #{$background-secondary-dark};
   --normal-layout-box-bg-color: #{$background-tertiary};
   --normal-layout-box-bg-invert-color: #{$background-tertiary-dark};
+  --normal-layout-bg-appear-color: #{$background-appear};
   --normal-layout-border-color: #{$border-color};
   --normal-layout-border-invert-color: #{$border-color-dark};
   --normal-layout-text-color: #{$text-primary};

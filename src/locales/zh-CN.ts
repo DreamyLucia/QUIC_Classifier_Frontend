@@ -79,4 +79,13 @@ export default {
       },
     },
   },
+  siderbar: {
+    userId: '用户ID：',
+    appButtons: {
+      upload: '上传流量包',
+      overview: '数据总览',
+      history: '查看历史任务',
+      admin: '管理员面板',
+    },
+  },
 }

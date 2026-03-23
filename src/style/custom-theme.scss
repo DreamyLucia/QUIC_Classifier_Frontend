@@ -212,6 +212,19 @@
   }
 }
 
+.no-bg-button {
+  transition: all 0.2s ease;
+  border-radius: 10px;
+  border: none;
+  background-color: transparent;
+  color: var(--normal-layout-text-color);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--normal-layout-bg-appear-color);
+  }
+}
+
 
 .click-text {
   transition: all 0.2s ease;
