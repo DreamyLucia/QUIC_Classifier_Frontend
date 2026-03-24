@@ -153,14 +153,14 @@ onMounted(() => {
 
 <template>
   <div class="flex h-full w-full normal-bg px-8 py-4 ">
-    <transition
-      appear
-      enter-active-class="transition-all duration-500 ease-out"
-      enter-from-class="opacity-0 translate-y-4"
-      enter-to-class="opacity-100 translate-y-0"
-    >
-      <div class="flex h-full w-full">
-        <Siderbar />
+    <div class="flex h-full w-full">
+      <Siderbar />
+      <transition
+        appear
+        enter-active-class="transition-all duration-500 ease-out"
+        enter-from-class="opacity-0 translate-y-4"
+        enter-to-class="opacity-100 translate-y-0"
+      >
         <div class="flex flex-col flex-1 justify-center items-center">
           <a-upload-dragger
             v-model:file-list="fileList"
@@ -226,8 +226,8 @@ onMounted(() => {
             </button>
           </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 
