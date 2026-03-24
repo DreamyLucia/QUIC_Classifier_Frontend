@@ -58,7 +58,7 @@ export const useUserStore = defineStore('user', {
       return this.userInfo.roles;
     },
     isAdmin(): boolean {
-      return this.userInfo.roles.includes('user');
+      return this.userInfo.roles.includes('admin');
     },
   },
   // 持久化

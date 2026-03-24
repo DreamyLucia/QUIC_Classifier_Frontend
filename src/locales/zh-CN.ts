@@ -100,6 +100,7 @@ export default {
       startUpload: '开始上传',
       uploadingStatus: '上传中...',
       clearAll: '清空全部',
+      pending: '待上传',
       common: {
         task: '任务',
         unit: '个',

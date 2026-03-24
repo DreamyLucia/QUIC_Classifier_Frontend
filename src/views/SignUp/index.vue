@@ -64,7 +64,7 @@ const handleSignUp = async () => {
   userStore.setUserInfo({
     userId: response.userId,
     username: response.username,
-    roles: [response.role], // 将 role 字符串转为数组
+    roles: response.role.split(','), // 将 role 字符串转为数组
   });
   userStore.syncLoginState();
   message.success(t('message.success.signUp'));
