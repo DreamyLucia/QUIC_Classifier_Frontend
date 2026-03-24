@@ -16,6 +16,8 @@ import {
   UploadOutlined,
 } from '@ant-design/icons-vue';
 
+const MAX_FILE_SIZE = 100 * 1024 * 1024;
+
 const abortControllers = ref<Map<string, AbortController>>(new Map());
 
 const router = useRouter();
@@ -57,6 +59,13 @@ const beforeUpload = (file: UploadFile) => {
     // 返回 Upload.LIST_IGNORE，文件不会出现在列表中
     return Upload.LIST_IGNORE;
   }
+
+  const isLt100M = (file.size || 0) <= MAX_FILE_SIZE;
+  if (!isLt100M) {
+    message.error(t('message.error.uploadFileSize'));
+    return Upload.LIST_IGNORE;
+  }
+
   return false;
 };
 
@@ -113,7 +122,8 @@ const handleUpload = async () => {
 
     if (success === total && failed === 0) {
       message.success(`${t('dashboard.upload.common.task')} ${task_name}: ${t('dashboard.upload.common.all')} ${success} ${t('dashboard.upload.common.file')} ${t('dashboard.upload.common.upload')} ${t('dashboard.upload.common.success')}`);
-      clearAll();
+      fileList.value = [];
+      uploading.value = false;
     }
     else if (success > 0 && failed > 0) {
       message.warning(`${t('dashboard.upload.common.task')} ${task_name}: ${success} ${t('dashboard.upload.common.unit')} ${t('dashboard.upload.common.success')}, ${failed} ${t('dashboard.upload.common.unit')} ${t('dashboard.upload.common.fail')}`);

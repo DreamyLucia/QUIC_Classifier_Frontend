@@ -13,6 +13,7 @@ export default {
       reset: '重置密码失败，请稍后重试',
       uploadError: '上传失败，请稍后重试',
       uploadFileType: '文件格式错误，请上传 .pcap 格式的文件',
+      uploadFileSize: '文件大小超过 100MB 限制',
       noFile: '没有选择上传文件',
     },
     success: {
