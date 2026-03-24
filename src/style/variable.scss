@@ -40,6 +40,8 @@ $background-appear: #E3E3FF;
   --normal-layout-text-secondary-color: #{$text-secondary-dark};
   --normal-layout-text-invert-color: #{$text-primary};
   --normal-layout-text-secondary-invert-color: #{$text-secondary};
+  --gradient-left: #{$left-color};
+  --gradient-right: #{$right-color};
 }
 
 :root[data-theme="light"] {
@@ -56,4 +58,6 @@ $background-appear: #E3E3FF;
   --normal-layout-text-secondary-color: #{$text-secondary};
   --normal-layout-text-invert-color: #{$text-primary-dark};
   --normal-layout-text-secondary-invert-color: #{$text-secondary-dark};
+  --gradient-left: #{$left-color};
+  --gradient-right: #{$right-color};
 }

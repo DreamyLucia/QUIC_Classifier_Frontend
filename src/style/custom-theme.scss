@@ -164,6 +164,21 @@
   }
 }
 
+.delete-button {
+  border-style: solid;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  border-color: var(--error-color, #ff4d4f);
+  border-radius: 10px;
+  color: var(--error-color, #ff4d4f);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--error-color, #ff4d4f);
+    color: var(--normal-layout-text-color);
+  }
+}
+
 .normal-button {
   background-color: var(--normal-layout-body-bg-invert-color);
   transition: all 0.2s ease;
@@ -225,11 +240,14 @@
   }
 }
 
-
 .click-text {
   transition: all 0.2s ease;
   cursor: pointer;
   &:hover {
     color: var(--primary);
   }
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, var(--gradient-left), var(--gradient-right));
 }

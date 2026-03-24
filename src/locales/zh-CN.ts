@@ -11,12 +11,18 @@ export default {
       signUp: '注册失败，请稍后重试',
       signIn: '登录失败，请稍后重试',
       reset: '重置密码失败，请稍后重试',
+      uploadError: '上传失败，请稍后重试',
+      uploadFileType: '文件格式错误，请上传 .pcap 格式的文件',
+      noFile: '没有选择上传文件',
     },
     success: {
       signUp: '注册成功',
       signIn: '登录成功',
       reset: '重置密码成功',
       logout: '登出成功',
+      upload: '上传成功，可在历史任务中查看',
+      uploadFileClear: '已清除该文件',
+      uploadAllFileClear: '已清除全部文件',
     },
     info: {
 
@@ -61,7 +67,6 @@ export default {
     },
     hero: {
       titles: {
-        main: '麻瓜面试',
         typed: [
           '一眼看穿QUIC业务',
           '加密流量，一眼识破',
@@ -86,6 +91,24 @@ export default {
       overview: '数据总览',
       history: '查看历史任务',
       admin: '管理员面板',
+    },
+  },
+  dashboard: {
+    dragText: '点击或拖拽流量包文件到此区域上传',
+    hint: '支持单个或批量上传，仅支持pcap格式',
+    upload: {
+      startUpload: '开始上传',
+      uploadingStatus: '上传中...',
+      clearAll: '清空全部',
+      common: {
+        task: '任务',
+        unit: '个',
+        all: '全部',
+        file: '文件',
+        upload: '上传',
+        success: '成功',
+        fail: '失败',
+      },
     },
   },
 }
