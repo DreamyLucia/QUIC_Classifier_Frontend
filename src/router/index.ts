@@ -16,6 +16,21 @@ const router = createRouter({
       name: 'Dashboard',
       component: () => import('@/views/Dashboard/index.vue'),
     },
+    {
+      path: '/history',
+      name: 'HistoryPage',
+      component: () => import('@/views/History/index.vue'),
+    },
+    {
+      path: '/overview',
+      name: 'OverviewPage',
+      component: () => import('@/views/Overview/index.vue'),
+    },
+    {
+      path: '/task/:task_id',
+      name: 'TaskDetail',
+      component: () => import('@/views/TaskDetails/index.vue'),
+    },
     ...authRouters,
   ],
 });

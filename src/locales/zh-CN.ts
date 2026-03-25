@@ -1,5 +1,12 @@
 export default {
   productName: '流量慧眼',
+  common: {
+    unit: {
+      file: '个',
+      second: '秒',
+      percent: '%',
+    },
+  },
   message: {
     error: {
       usernameEmpty: '用户名不能为空',
@@ -15,6 +22,9 @@ export default {
       uploadFileType: '文件格式错误，请上传 .pcap 格式的文件',
       uploadFileSize: '文件大小超过 100MB 限制',
       noFile: '没有选择上传文件',
+      getTasksError: '获取任务列表失败',
+      getStatsError: '获取统计数据失败',
+      getTaskDetailError: '获取任务详情失败',
     },
     success: {
       signUp: '注册成功',
@@ -26,7 +36,9 @@ export default {
       uploadAllFileClear: '已清除全部文件',
     },
     info: {
-
+      taskAnalyzing: '任务分析中，暂无法查看详情',
+      taskPending: '任务等待中，暂无法查看详情',
+      taskFailed: '任务失败，暂无法查看详情',
     },
   },
   signup: {
@@ -112,5 +124,43 @@ export default {
         fail: '失败',
       },
     },
+  },
+  statsCard: {
+    stats: {
+      totalFiles: '总分析文件数',
+      totalTime: '总分析耗时',
+      avgConfidence: '平均置信度',
+    },
+  },
+  taskCard: {
+    fileCount: '分析文件',
+    avgConfidence: '平均置信度',
+    analysisTime: '耗时',
+    status: {
+      completed: '已完成',
+      analyzing: '分析中',
+      pending: '等待中',
+      failed: '失败',
+    },
+  },
+  taskDetails: {
+    avgConfidence: '平均置信度',
+    analysisTime: '耗时',
+    successCount: '成功识别',
+    unknownCount: '未识别',
+    totalFiles: '文件总数',
+    createdAt: '创建时间',
+    categoryDistribution: '业务分布',
+    fileList: '文件列表',
+    noDetails: '暂无相关任务详情',
+  },
+  history: {
+    title: '历史任务',
+    common: {
+      task: '任务',
+      unit: '个',
+      total: '共',
+    },
+    noTask: '暂无相关历史任务',
   },
 }

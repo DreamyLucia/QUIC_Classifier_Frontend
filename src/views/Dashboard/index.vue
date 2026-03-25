@@ -2,7 +2,6 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Siderbar from '@/components/SiderBar/index.vue'
-import { getUserInfoApi } from '@/api/user';
 import { uploadBatchPcapApi } from '@/api/upload';
 import type { UserInfoType } from '@/types/user';
 import { Upload, message } from 'ant-design-vue';
@@ -32,21 +31,6 @@ const user = ref<UserInfoType>({
 });
 
 const isLoading = ref(true)
-
-const fetchUserInfo = async () => {
-  try {
-    user.value = await getUserInfoApi()
-  }
-  catch (error) {
-    message.error(t('message.error.getUserInfoError'))
-    console.error('获取用户信息失败:', error)
-  }
-  finally {
-    setTimeout(() => {
-      isLoading.value = false;
-    }, 500);
-  }
-}
 
 const generateTaskId = () => {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 12)}`;
@@ -152,7 +136,6 @@ onMounted(() => {
     router.push({ name: 'SignInPage' });
     return;
   }
-  fetchUserInfo();
 
   window.addEventListener('beforeunload', (e) => {
     if (uploading.value)

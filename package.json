@@ -30,6 +30,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
     "diff": "^7.0.0",
+    "echarts": "^6.0.0",
     "highlight.js": "^11.7.0",
     "js-cookie": "^3.0.5",
     "jsencrypt": "^3.3.2",
