@@ -12,8 +12,10 @@ import {
   DeleteOutlined,
   FrownOutlined,
   InboxOutlined,
+  SettingOutlined,
   UploadOutlined,
 } from '@ant-design/icons-vue';
+import { MODEL_OPTIONS, MODEL_TYPES } from '@/constants/model';
 
 const MAX_FILE_SIZE = 100 * 1024 * 1024;
 
@@ -23,14 +25,7 @@ const router = useRouter();
 
 const fileList = ref<UploadFile[]>([]);
 const uploading = ref(false);
-
-const user = ref<UserInfoType>({
-  userId: '',
-  username: '',
-  roles: [],
-});
-
-const isLoading = ref(true)
+const selectedModel = ref(MODEL_TYPES.STANDARD);
 
 const generateTaskId = () => {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 12)}`;
@@ -101,7 +96,7 @@ const handleUpload = async () => {
   const files = fileList.value.map(f => f.originFileObj as File);
 
   try {
-    const result = await uploadBatchPcapApi(files, taskId);
+    const result = await uploadBatchPcapApi(files, taskId, selectedModel.value);
     const { task_name, total, success, failed } = result;
 
     if (success === total && failed === 0) {
@@ -155,68 +150,89 @@ onMounted(() => {
         enter-to-class="opacity-100 translate-y-0"
       >
         <div class="flex flex-col flex-1 justify-center items-center">
-          <a-upload-dragger
-            v-model:file-list="fileList"
-            name="file"
-            :multiple="true"
-            :before-upload="beforeUpload"
-            :custom-request="customRequest"
-            :show-upload-list="false"
-            :directory="true"
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            class="px-8 py-4"
-            @change="handleChange"
-          >
-            <p class="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p class="ant-upload-text">
-              {{ t('dashboard.dragText') }}
-            </p>
-            <p class="ant-upload-hint">
-              {{ t('dashboard.hint') }}
-            </p>
-          </a-upload-dragger>
-
-          <!-- 自定义上传列表 -->
-          <span class="text-sm text-primary">
-            {{ t('dashboard.upload.pending') }} ({{ fileList.length }})
-          </span>
-          <div
-            v-if="fileList.length > 0"
-            class="flex flex-col max-h-[400px] w-[60%] overflow-y-auto custom-scrollbar mt-4 rounded-[10px] body-bg py-2 px-4"
-          >
-            <div
-              v-for="file in fileList"
-              :key="file.uid"
-              class="flex items-center justify-between p-2 no-bg-button transition-colors"
+          <div class="flex flex-col flex-1 items-center justify-center w-full">
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xl text-secondary mr-4">{{ t('dashboard.selectLabel') }}</span>
+              <a-radio-group v-model:value="selectedModel" class="flex gap-4">
+                <a-radio
+                  v-for="option in MODEL_OPTIONS"
+                  :key="option.value"
+                  :value="option.value"
+                  class="flex items-center"
+                >
+                  <div class="flex flex-col">
+                    <span class="font-medium">{{ t(`model.${option.value}.name`) }}</span>
+                    <span class="text-secondary text-xs">{{ t(`model.${option.value}.description`) }}</span>
+                  </div>
+                </a-radio>
+              </a-radio-group>
+            </div>
+            <a-upload-dragger
+              v-model:file-list="fileList"
+              name="file"
+              :multiple="true"
+              :before-upload="beforeUpload"
+              :custom-request="customRequest"
+              :show-upload-list="false"
+              :directory="true"
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              class="px-8 py-4"
+              @change="handleChange"
             >
-              <span class="flex-1 text-sm text-secondary truncate mr-3">
-                {{ file.name }}
-              </span>
+              <p class="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p class="ant-upload-text">
+                {{ t('dashboard.dragText') }}
+              </p>
+              <p class="ant-upload-hint">
+                {{ t('dashboard.hint') }}
+              </p>
+            </a-upload-dragger>
 
-              <DeleteOutlined
-                class="cursor-pointer text-gray-400 hover:text-red-500 hover:scale-110 transition-all"
-                @click="removeFile(file)"
-              />
+            <!-- 自定义上传列表 -->
+            <span class="text-sm text-primary">
+              {{ t('dashboard.upload.pending') }} ({{ fileList.length }})
+            </span>
+            <div
+              v-if="fileList.length > 0"
+              class="flex flex-col max-h-[320px] w-[60%] overflow-y-auto custom-scrollbar mt-4 rounded-[10px] body-bg py-2 px-4"
+            >
+              <div
+                v-for="file in fileList"
+                :key="file.uid"
+                class="flex items-center justify-between p-2 no-bg-button transition-colors"
+              >
+                <span class="flex-1 text-sm text-secondary truncate mr-3">
+                  {{ file.name }}
+                </span>
+
+                <DeleteOutlined
+                  class="cursor-pointer text-gray-400 hover:text-red-500 hover:scale-110 transition-all"
+                  @click="removeFile(file)"
+                />
+              </div>
+            </div>
+            <div v-if="fileList.length > 0" class="flex justify-between items-center mt-4 space-x-4">
+              <button
+                class="px-4 py-2 primary-button disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="uploading"
+                @click="handleUpload"
+              >
+                <UploadOutlined class="mr-2" />
+                {{ uploading ? t('dashboard.upload.uploadingStatus') : t('dashboard.upload.startUpload') }}
+              </button>
+              <button
+                class="px-4 py-2 delete-button disabled:opacity-50 disabled:cursor-not-allowed"
+                @click="clearAll"
+              >
+                <FrownOutlined class="mr-2" />
+                {{ t('dashboard.upload.clearAll') }}
+              </button>
             </div>
           </div>
-          <div v-if="fileList.length > 0" class="flex justify-between items-center mt-4 space-x-4">
-            <button
-              class="px-4 py-2 primary-button disabled:opacity-50 disabled:cursor-not-allowed"
-              :disabled="uploading"
-              @click="handleUpload"
-            >
-              <UploadOutlined class="mr-2" />
-              {{ uploading ? t('dashboard.upload.uploadingStatus') : t('dashboard.upload.startUpload') }}
-            </button>
-            <button
-              class="px-4 py-2 delete-button disabled:opacity-50 disabled:cursor-not-allowed"
-              @click="clearAll"
-            >
-              <FrownOutlined class="mr-2" />
-              {{ t('dashboard.upload.clearAll') }}
-            </button>
+          <div class="mt-auto w-full text-center">
+            <span class="text-xs text-secondary">{{ t('common.tips') }}</span>
           </div>
         </div>
       </transition>

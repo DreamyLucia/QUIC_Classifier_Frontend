@@ -6,6 +6,17 @@ export default {
       second: '秒',
       percent: '%',
     },
+    tips: '结果由模型分类，仅供参考',
+  },
+  model: {
+    standard: {
+      name: '标准双流CNN',
+      description: '双流CNN + 朴素贝叶斯集成',
+    },
+    adfnet: {
+      name: 'ADF-Net',
+      description: '注意力增强双流多粒度融合网络',
+    },
   },
   message: {
     error: {
@@ -109,6 +120,7 @@ export default {
   dashboard: {
     dragText: '点击或拖拽流量包文件到此区域上传',
     hint: '支持单个或批量上传，仅支持pcap格式',
+    selectLabel: '模型选择',
     upload: {
       startUpload: '开始上传',
       uploadingStatus: '上传中...',

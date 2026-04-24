@@ -1,9 +1,11 @@
 import { api } from '@/api/api';
 import type { BatchUploadResult } from '@/types/upload';
+import { MODEL_TYPES } from '@/constants/model';
 
 export const uploadBatchPcapApi = async (
   files: File[],
   taskId: string,
+  modelType: string = MODEL_TYPES.STANDARD,
   onProgress?: (percent: number) => void,
 ): Promise<BatchUploadResult> => {
   const formData = new FormData();
@@ -12,7 +14,10 @@ export const uploadBatchPcapApi = async (
   });
 
   const response = await api.post('/api/upload/batch', formData, {
-    params: { task_id: taskId },
+    params: {
+      task_id: taskId,
+      model_type: modelType,
+    },
     headers: {
       'Content-Type': 'multipart/form-data',
     },

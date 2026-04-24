@@ -1,4 +1,3 @@
-import { useUserStore } from '@/store/user'
 import router from './index'
 import Cookies from 'js-cookie';
 
@@ -15,7 +14,6 @@ const whiteList = [
 // 路由守卫
 router.beforeEach(async (to, from, next) => {
   const token = Cookies.get('access_token');
-
   // 白名单检查
   if (whiteList.includes(to.path)) {
     next();
