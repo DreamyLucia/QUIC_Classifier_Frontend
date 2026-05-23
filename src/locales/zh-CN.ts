@@ -162,6 +162,7 @@ export default {
     unknownCount: '未识别',
     totalFiles: '文件总数',
     createdAt: '创建时间',
+    modelType: '模型类型',
     categoryDistribution: '业务分布',
     fileList: '文件列表',
     noDetails: '暂无相关任务详情',

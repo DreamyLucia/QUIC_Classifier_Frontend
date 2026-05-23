@@ -22,6 +22,11 @@ const router = createRouter({
       component: () => import('@/views/History/index.vue'),
     },
     {
+      path: '/settings',
+      name: 'SettingsPage',
+      component: () => import('@/views/Settings/index.vue'),
+    },
+    {
       path: '/overview',
       name: 'OverviewPage',
       component: () => import('@/views/Overview/index.vue'),

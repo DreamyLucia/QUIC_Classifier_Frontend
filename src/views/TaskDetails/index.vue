@@ -6,7 +6,7 @@ import LoadingWrapper from '@/components/LoadingWrapper/index.vue'
 import PieChart from './components/PieChart.vue'
 import ResultCard from './components/ResultCard.vue'
 import { getTaskResultsApi } from '@/api/query'
-import type { TaskResultItem, TaskResultsResponse } from '@/types/query'
+import type { TaskResultsResponse } from '@/types/query'
 import { message } from 'ant-design-vue'
 import { t } from '@/locales'
 
@@ -73,6 +73,12 @@ onMounted(() => {
                 <div class="flex w-full">
                   <span class="text-primary">{{ t('taskDetails.createdAt') }}</span>
                   <span class="primary font-bold ml-auto">{{ formatDate(taskDetail.created_at) }}</span>
+                </div>
+
+                <!-- 模型类型 -->
+                <div class="flex w-full">
+                  <span class="text-primary">{{ t('taskDetails.modelType') }}</span>
+                  <span class="primary font-bold ml-auto">{{ t(`model.${taskDetail.model_type}.name`) }}</span>
                 </div>
 
                 <!-- 成功识别 -->

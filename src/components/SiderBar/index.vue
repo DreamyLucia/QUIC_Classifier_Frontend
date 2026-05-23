@@ -113,7 +113,7 @@ const handleLogout = () => {
 };
 
 const handleSettings = () => {
-  router.push({ name: 'Space' })
+  router.push({ name: 'SettingsPage' })
 }
 
 const handleMouseEnter = () => {

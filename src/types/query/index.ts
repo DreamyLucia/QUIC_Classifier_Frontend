@@ -38,6 +38,7 @@ export interface TaskInfo {
   task_name: string;
   file_count: number;
   status: string; // pending/analyzing/completed/failed
+  model_type: string;
   category_stats: Record<string, number>;
   unknown_count: number;
   total_analysis_time: number;
@@ -74,6 +75,7 @@ export interface TaskResultsResponse {
   task_name: string;
   file_count: number;
   status: string;
+  model_type: string;
   category_stats: Record<string, number>;
   unknown_count: number;
   total_analysis_time: number;
