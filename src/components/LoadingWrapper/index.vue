@@ -21,7 +21,7 @@ defineProps<{
       <transition
         v-if="animated"
         appear
-        enter-active-class="transition-all duration-500 ease-out"
+        enter-active-class="transition-all duration-100 ease-out"
         enter-from-class="opacity-0 translate-y-4"
         enter-to-class="opacity-100 translate-y-0"
       >
