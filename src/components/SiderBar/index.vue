@@ -53,12 +53,6 @@ const appButtons = computed<ButtonItem[]>(() => {
       action: () => router.push({ name: 'HistoryPage' }),
       routeName: 'HistoryPage',
     },
-    {
-      icon: PieChartOutlined,
-      title: t('siderbar.appButtons.overview'),
-      action: () => router.push({ name: 'OverviewPage' }),
-      routeName: 'OverviewPage',
-    },
   ];
 
   if (userStore.isAdmin) {
